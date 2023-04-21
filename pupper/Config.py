@@ -6,8 +6,10 @@ from enum import Enum
 # TODO: put these somewhere else
 class PWMParams:
     def __init__(self):
-        self.pins = np.array([[2, 14, 18, 23], [3, 15, 27, 24], [4, 17, 22, 25]])
+        #self.pins = np.array([[2, 14, 18, 23], [3, 15, 27, 24], [4, 17, 22, 25]])
+        self.pins = np.array([[10, 7, 13, 4], [12, 9, 15, 6], [11, 8, 14, 5]])
         self.range = 4000
+        self.min = 200
         self.freq = 250
 
 
