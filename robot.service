@@ -4,8 +4,8 @@ Requires=joystick.service
 After=joystick.service
 
 [Service]
-ExecStartPre=-sudo pigpiod
-ExecStart=/usr/bin/python3 /home/pi/StanfordQuadruped/run_robot.py
+#ExecStartPre=-sudo pigpiod
+ExecStart=/usr/bin/python3 /home/nano/Documents/git/StanfordQuadruped/run_robot.py
 KillSignal=2
 TimeoutStopSec=10
 
