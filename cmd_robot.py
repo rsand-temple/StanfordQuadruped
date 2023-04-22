@@ -51,43 +51,43 @@ try:
             command.activate_event = not command.activate_event
             print('ActivateEvent', command.activate_event)
         elif parsed[0] == 'hop':
-            command.hop = not command.hop
-            print('Hop', command.hop)
+            command.hop_event = not command.hop_event
+            print('Hop', command.hop_event)
         elif parsed[0] == 'trot':
-            command.trot = not command.trot
-            print('Trot', command.trot)
+            command.trot_event = not command.trot_event
+            print('Trot', command.trot_event)
         elif parsed[0] == 'velocity':
-            if (parsed.count == 3):
+            if (len(parsed) == 3):
                 command.horizontal_velocity = np.array([parsed[1], parsed[2]]).astype(np.float32)
                 print('Horizontal velocity', command.horizontal_velocity)
             else:
                 print('ERROR: Horizontal velocity requires 2 arguments')
         elif parsed[0] == 'yaw':
-            if (parsed.count == 2):
+            if (len(parsed) == 2):
                 command.yaw_rate = float(parsed[1])
                 print('Yaw rate', command.yaw_rate)
             else:
                 print('ERROR: Yaw rate requires 1 argument')
         elif parsed[0] == 'height':
-            if (parsed.count == 2):
+            if (len(parsed) == 2):
                 command.height = float(parsed[1])
                 print('Height', command.height)
             else:
                 print('ERROR: Height requires 1 argument')
         elif parsed[0] == 'pitch':
-            if (parsed.count == 2):
+            if (len(parsed) == 2):
                 command.pitch = float(parsed[1])
                 print('Pitch', command.pitch)
             else:
                 print('ERROR: Pitch requires 1 argument')
         elif parsed[0] == 'roll':
-            if (parsed.count == 2):
+            if (len(parsed) == 2):
                 command.roll = float(parsed[1])
                 print('Roll', command.roll)
             else:
                 print('ERROR: Roll requires 1 argument')
         elif parsed[0] == 'activation':
-            if (parsed.count == 2):
+            if (len(parsed) == 2):
                 command.activation = int(parsed[1])
                 print('Activation', command.activation)
             else:
