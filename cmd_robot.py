@@ -93,7 +93,7 @@ try:
             else:
                 print('ERROR: Activation requires 1 argument')
         elif parsed[0] == 'status':
-            print('Status', command)
+            print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
         else:
             print('Unknown command')
 

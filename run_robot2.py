@@ -89,7 +89,8 @@ def main(use_imu=False):
                 #command = joystick_interface.get_command(state)
                 #joystick_interface.set_color(config.ps4_deactivated_color)
                 command = read_command(shm_interface)
-                if command.activate_event == 1:
+                print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
+                if command.activate_event == True:
                     break
                 time.sleep(0.1)
             print("Robot activated.")
@@ -104,7 +105,7 @@ def main(use_imu=False):
                 # Parse the udp joystick commands and then update the robot controller's parameters
                 #command = joystick_interface.get_command(state)
                 command = read_command(shm_interface)
-                if command.activate_event == 1:
+                if command.activate_event == True:
                     print("Deactivating Robot")
                     break
 
@@ -123,4 +124,5 @@ def main(use_imu=False):
         print("Going away...")
         shm_interface.shm.close()
         shm_interface.shm.unlink()  # Free and release the shared memory block at the very end
+
 main()
