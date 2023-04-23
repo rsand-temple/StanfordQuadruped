@@ -29,67 +29,68 @@ def remove_shm_from_resource_tracker():
 remove_shm_from_resource_tracker()
 shm_robot = ShareableList(name='robot_smm')
 
-command = Command()
-command.horizontal_velocity = np.array([shm_robot[0], shm_robot[1]])
-command.yaw_rate = shm_robot[2]
-command.height = shm_robot[3]
-command.pitch = shm_robot[4]
-command.roll = shm_robot[5]
-command.activation = shm_robot[6]
-command.hop_event = shm_robot[7]
-command.trot_event = shm_robot[8]
-command.activate_event = shm_robot[9]
-
 try:
     user_input = ''
+    command = Command()
     while True:
+        command.horizontal_velocity = np.array([shm_robot[0], shm_robot[1]])
+        command.yaw_rate = shm_robot[2]
+        command.height = shm_robot[3]
+        command.pitch = shm_robot[4]
+        command.roll = shm_robot[5]
+        command.activation = shm_robot[6]
+        command.hop_event = shm_robot[7]
+        command.trot_event = shm_robot[8]
+        command.activate_event = shm_robot[9]
+
         user_input = input('Robot> ')
         parsed = user_input.lower().split()
         if parsed[0] == 'quit':
             break
         elif parsed[0] == 'activate':
-            command.activate_event = not command.activate_event
-            print('ActivateEvent', command.activate_event)
+            shm_robot[9] = not shm_robot[9]
+            print('Activate', shm_robot[9])
         elif parsed[0] == 'hop':
-            command.hop_event = not command.hop_event
-            print('Hop', command.hop_event)
+            shm_robot[7] = not shm_robot[7]
+            print('Hop', shm_robot[7])
         elif parsed[0] == 'trot':
-            command.trot_event = not command.trot_event
-            print('Trot', command.trot_event)
+            shm_robot[8] = not shm_robot[8]
+            print('Trot', shm_robot[8])
         elif parsed[0] == 'velocity':
             if (len(parsed) == 3):
-                command.horizontal_velocity = np.array([parsed[1], parsed[2]]).astype(np.float32)
-                print('Horizontal velocity', command.horizontal_velocity)
+                shm_robot[0] = float(parsed[1])
+                shm_robot[1] = float(parsed[2])
+                print('Horizontal velocity', shm_robot[0], ',', shm_robot[1])
             else:
                 print('ERROR: Horizontal velocity requires 2 arguments')
         elif parsed[0] == 'yaw':
             if (len(parsed) == 2):
-                command.yaw_rate = float(parsed[1])
-                print('Yaw rate', command.yaw_rate)
+                shm_robot[2] = float(parsed[1])
+                print('Yaw rate', shm_robot[2])
             else:
                 print('ERROR: Yaw rate requires 1 argument')
         elif parsed[0] == 'height':
             if (len(parsed) == 2):
-                command.height = float(parsed[1])
-                print('Height', command.height)
+                shm_robot[3] = float(parsed[1])
+                print('Height', shm_robot[3])
             else:
                 print('ERROR: Height requires 1 argument')
         elif parsed[0] == 'pitch':
             if (len(parsed) == 2):
-                command.pitch = float(parsed[1])
-                print('Pitch', command.pitch)
+                shm_robot[4] = float(parsed[1])
+                print('Pitch', shm_robot[4])
             else:
                 print('ERROR: Pitch requires 1 argument')
         elif parsed[0] == 'roll':
             if (len(parsed) == 2):
-                command.roll = float(parsed[1])
-                print('Roll', command.roll)
+                shm_robot[5] = float(parsed[1])
+                print('Roll', shm_robot[5])
             else:
                 print('ERROR: Roll requires 1 argument')
         elif parsed[0] == 'activation':
             if (len(parsed) == 2):
-                command.activation = int(parsed[1])
-                print('Activation', command.activation)
+                shm_robot[6] = int(parsed[1])
+                print('Activation', shm_robot[6])
             else:
                 print('ERROR: Activation requires 1 argument')
         elif parsed[0] == 'status':

@@ -91,6 +91,7 @@ def main(use_imu=False):
                 command = read_command(shm_interface)
                 print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
                 if command.activate_event == True:
+                    shm_interface[9] = False # so we don't loop
                     break
                 time.sleep(0.1)
             print("Robot activated.")

@@ -5,7 +5,7 @@ import board
 import busio
 import numpy as np
 from adafruit_pca9685 import PCA9685
-from adafruit_motor import servo
+#from adafruit_motor import servo
 from adafruit_servokit import ServoKit
 
 class HardwareInterface:
@@ -29,12 +29,12 @@ class HardwareInterface:
     def set_actuator_postions(self, joint_angles):
         #send_servo_commands(self.pi, self.pwm_params, self.servo_params, joint_angles)
         #send_servo_commands(self.pca, self.pwm_params, self.servo_params, joint_angles)
-        send_servo_commands(self.kit, self.pwm_params, self.servo_params, joint_angles)
+        send_servo_commands(self.kit, self.pwm_params, joint_angles)
     
     def set_actuator_position(self, joint_angle, axis, leg):
         #send_servo_command(self.pi, self.pwm_params, self.servo_params, joint_angle, axis, leg)
         #send_servo_command(self.pca, self.pwm_params, self.servo_params, joint_angle, axis, leg)
-        send_servo_command(self.kit, self.pwm_params, self.servo_params, joint_angle, axis, leg)
+        send_servo_command(self.kit, self.pwm_params, joint_angle, axis, leg)
 
 
 def pwm_to_duty_cycle(pulsewidth_micros, pwm_params):
@@ -106,7 +106,7 @@ def initialize_pwm(kit, pwm_params):
 
 #def send_servo_commands(pi, pwm_params, servo_params, joint_angles):
 #def send_servo_commands(pca, pwm_params, servo_params, joint_angles):
-def send_servo_commands(kit, pwm_params, servo_params, joint_angles):
+def send_servo_commands(kit, pwm_params, joint_angles):
     for leg_index in range(4):
         for axis_index in range(3):
             #duty_cycle = angle_to_duty_cycle(
@@ -115,12 +115,12 @@ def send_servo_commands(kit, pwm_params, servo_params, joint_angles):
             #)
             #pi.set_PWM_dutycycle(pwm_params.pins[axis_index, leg_index], duty_cycle)
             #pca.channels[pwm_params.pins[axis_index, leg_index]].duty_cycle = duty_cycle
-            send_servo_command(kit, pwm_params, servo_params, joint_angles[axis_index, leg_index])
+            send_servo_command(kit, pwm_params, joint_angles[axis_index, leg_index], axis_index, leg_index)
             #kit.servo[pwm_params.pins[axis_index, leg_index]].angle = joint_angles[axis_index, leg_index]
 
 #def send_servo_command(pi, pwm_params, servo_params, joint_angle, axis, leg):
 #def send_servo_command(pca, pwm_params, servo_params, joint_angle, axis, leg):
-def send_servo_command(kit, pwm_params, servo_params, joint_angle, axis, leg):
+def send_servo_command(kit, pwm_params, joint_angle, axis, leg):
     #duty_cycle = angle_to_duty_cycle(joint_angle, pwm_params, servo_params, axis, leg)
     #pi.set_PWM_dutycycle(pwm_params.pins[axis, leg], duty_cycle)
     #pca.channels[pwm_params.pins[axis, leg]].duty_cycle = duty_cycle
