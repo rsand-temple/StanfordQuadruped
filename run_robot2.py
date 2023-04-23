@@ -92,6 +92,7 @@ def main(use_imu=False):
                 print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
                 if command.activate_event == True:
                     shm_interface[9] = False # so we don't loop
+                    command.activate_event = False
                     break
                 time.sleep(0.1)
             print("Robot activated.")
@@ -106,6 +107,7 @@ def main(use_imu=False):
                 # Parse the udp joystick commands and then update the robot controller's parameters
                 #command = joystick_interface.get_command(state)
                 command = read_command(shm_interface)
+                print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
                 if command.activate_event == True:
                     print("Deactivating Robot")
                     break
