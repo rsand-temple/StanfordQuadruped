@@ -47,6 +47,16 @@ try:
         parsed = user_input.lower().split()
         if parsed[0] == 'quit' or parsed[0] == 'exit':
             break
+        elif parsed[0] == 'help' or parsed[0] == '?':
+            print('\tactivate')
+            print('\thop')
+            print('\ttrot')
+            print('\tvelocity <x> <y>')
+            print('\tyaw <angle>')
+            print('\theight <m>')
+            print('\tpitch <angle>')
+            print('\troll <angle>')
+            print('\tactivation <a>')
         elif parsed[0] == 'activate':
             shm_robot[9] = not shm_robot[9]
             print('Activate', shm_robot[9])
