@@ -45,6 +45,29 @@ def read_command(shm_interface):
     command.activate_event = shm_interface[9]
     return command
 
+def ischanged(newcommand, oldcommand):
+    if newcommand.horizontal_velocity[0] != oldcommand.horizontal_velocity[0]:
+        return True
+    if newcommand.horizontal_velocity[1] != oldcommand.horizontal_velocity[1]:
+        return True
+    if newcommand.yaw_rate != oldcommand.yaw_rate:
+        return True
+    if newcommand.height != oldcommand.height:
+        return True
+    if newcommand.pitch != oldcommand.pitch:
+        return True
+    if newcommand.roll != oldcommand.roll:
+        return True
+    if newcommand.activation != oldcommand.activation:
+        return True
+    if newcommand.hop_event != oldcommand.hop_event:
+        return True
+    if newcommand.trot_event != oldcommand.trot_event:
+        return True
+    if newcommand.activate_event != oldcommand.activate_event:
+        return True
+    return False
+
 def main(use_imu=False):
     """Main program
     """
@@ -81,6 +104,9 @@ def main(use_imu=False):
     print("z clearance: ", config.z_clearance)
     print("x shift: ", config.x_shift)
 
+    # prime the pump
+    oldcommand = read_command(shm_interface)
+
     try:
         # Wait until the activate button has been pressed
         while True:
@@ -89,7 +115,9 @@ def main(use_imu=False):
                 #command = joystick_interface.get_command(state)
                 #joystick_interface.set_color(config.ps4_deactivated_color)
                 command = read_command(shm_interface)
-                print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
+                if ischanged(command, oldcommand):
+                    print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
+                oldcommand = command
                 if command.activate_event == True:
                     shm_interface[9] = False # so we don't loop
                     command.activate_event = False
@@ -107,7 +135,9 @@ def main(use_imu=False):
                 # Parse the udp joystick commands and then update the robot controller's parameters
                 #command = joystick_interface.get_command(state)
                 command = read_command(shm_interface)
-                print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
+                if ischanged(command, oldcommand):
+                    print('Command', command.horizontal_velocity, command.yaw_rate, command.height, command.pitch, command.roll, command.activation, command.hop_event, command.trot_event, command.activate_event)
+                oldcommand = command
                 if command.activate_event == True:
                     print("Deactivating Robot")
                     break

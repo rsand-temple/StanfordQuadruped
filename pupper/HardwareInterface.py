@@ -125,8 +125,9 @@ def send_servo_command(kit, pwm_params, joint_angle, axis, leg):
     #pi.set_PWM_dutycycle(pwm_params.pins[axis, leg], duty_cycle)
     #pca.channels[pwm_params.pins[axis, leg]].duty_cycle = duty_cycle
     ja_degrees = (180 * joint_angle / np.pi) + 90 # servokit goes 0-180 not -90,90 
-    print('Settings servo {} to angle {} deg'.format(pwm_params.pins[axis, leg], ja_degrees))
-    kit.servo[pwm_params.pins[axis, leg]].angle = ja_degrees
+    if abs(kit.servo[pwm_params.pins[axis, leg]].angle - ja_degrees) > 0.0001:
+        print('Settings servo {} to angle {} deg'.format(pwm_params.pins[axis, leg], ja_degrees))
+        kit.servo[pwm_params.pins[axis, leg]].angle = ja_degrees
 
 #def deactivate_servos(pi, pwm_params):
 def deactivate_servos(pca, pwm_params):
